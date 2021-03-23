@@ -9,4 +9,6 @@ RUN mvn package
 
 FROM oznu/guacamole
 
+RUN apt-get update && apt-get install -y netcat vim
+
 COPY --from=build /workdir/guacamole-legacy-urls/target/guacamole-legacy-urls-*.jar /app/guacamole/extensions/
