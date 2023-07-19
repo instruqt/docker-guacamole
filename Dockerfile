@@ -6,8 +6,7 @@ RUN git clone https://github.com/mike-jumper/guacamole-legacy-urls.git
 WORKDIR /workdir/guacamole-legacy-urls
 RUN mvn package
 
-
-FROM oznu/guacamole
+FROM jwetzell/guacamole
 
 RUN apt-get update && apt-get install -y netcat vim
 
