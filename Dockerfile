@@ -8,6 +8,6 @@ RUN mvn package
 
 FROM jwetzell/guacamole
 
-RUN apt-get update && apt-get install -y vim
+RUN apt-get update && apt-get install -y vim netcat-traditional
 
 COPY --from=build /workdir/guacamole-legacy-urls/target/guacamole-legacy-urls-*.jar /app/guacamole/extensions/
