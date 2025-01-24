@@ -2,7 +2,7 @@
 
 A self-contained guacamole docker container:
 
-* Based on [oznu/guacamole](https://github.com/oznu/docker-guacamole) (now archived, may need to fork)
+* Based on [jwetzell/guacamole](https://github.com/jwetzell/docker-guacamole)
 * Added [guacamole-legacy-urls](https://github.com/mike-jumper/guacamole-legacy-urls) for easier deeplinking to specific connection
 
 ## Usage
