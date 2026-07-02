@@ -43,16 +43,30 @@ cat <<'EOF' > /config/guacamole/user-mapping.xml
             <!-- hostname as defined in instruqt config.yml -->
             <param name="hostname">srv01</param>
             <param name="port">3389</param>
+            <param name="ignore-cert">true</param>
             <!-- domain/username/password must be valid for the target host -->
             <param name="domain">instruqt.local</param>
             <param name="username">windows_user</param>
             <param name="password">windows_password</param>
-            <param name="ignore-cert">true</param>
+            <!-- crisp text: ClearType + full color -->
+            <param name="enable-font-smoothing">true</param>
+            <param name="color-depth">32</param>
+            <param name="disable-glyph-caching">true</param>
+            <!-- consistent sizing on HiDPI clients; desktop follows browser window size -->
+            <param name="dpi">96</param>
+            <param name="resize-method">display-update</param>
         </connection>
     </authorize>
 </user-mapping>
 EOF
 ```
+
+The display parameters matter for rendering quality — keep them in your track config:
+
+* `enable-font-smoothing` + `color-depth` — enables ClearType and full color; without these, Windows sends jagged, aliased text.
+* `disable-glyph-caching` — glyph caching bypasses font smoothing and is buggy; newer Guacamole versions disable it by default, this makes it explicit.
+* `dpi=96` — without it, guacd picks the session DPI heuristically at connect time. On HiDPI/Retina clients the first connect often happens before the tab iframe is fully laid out, the heuristic then picks the native (e.g. 192) DPI, and the desktop renders with tiny text until the page is reloaded. Pinning 96 makes sizing deterministic while still adapting to each user's window size.
+* `resize-method=display-update` — the Windows desktop resizes to match the browser window, keeping a 1:1 pixel mapping (requires Windows Server 2016+).
 
 ### Add tab configuration
 
